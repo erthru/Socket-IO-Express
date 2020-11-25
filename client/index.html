@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Socket IO Express Client</title>
+        <script src="https://cdn.socket.io/socket.io-3.0.1.js"></script>
+    </head>
+
+    <script>
+        const webSocket = io("http://localhost:3000");
+
+        webSocket.on("notification", (payload) => {
+            alert(payload.message)
+        });
+    </script>
+</html>
