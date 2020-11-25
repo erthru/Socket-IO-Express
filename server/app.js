@@ -1,12 +1,16 @@
 const express = require("express");
+
+// import socket io
 const socketIO = require("socket.io");
+
 const http = require("http");
-const routes = require("./routes");
+const router = require("./router");
 
 const PORT = 3000;
 const app = express();
 const server = http.createServer(app);
 
+// add cors
 const webSocket = socketIO(server, {
     cors: {
         origin: "*",
@@ -14,10 +18,14 @@ const webSocket = socketIO(server, {
 });
 
 app.use((req, _, next) => {
+    // create io var to access in router later
     req.io = webSocket;
     next();
-}, routes);
+}, router);
 
+// listening to connection.
+// this function will execute every time someone connected
+// to this server
 webSocket.on("connection", () => {
     console.log("someone connected");
 });
